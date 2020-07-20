@@ -15,7 +15,7 @@
   let selectorWidth = 40;
   let widthOverview = selectorWidth + marginOverview;
   let width = 600 - margin.left - margin.right - widthOverview;
-  let height = 400 - margin.top - margin.bottom;
+  let height = 600 - margin.top - margin.bottom;
 
   let maxLength = d3.max(data.map((d) => d.label.length));
   let barWidth = maxLength * 7;
@@ -102,14 +102,14 @@
       .attr('class', 'mover')
       .attr('x', 0)
       .attr('y', 0)
-      .attr('height', 100)
+      .attr('height', 70)
       .attr('width', selectorWidth)
       .attr('pointer-events', 'all')
       .attr('cursor', 'ns-resize')
-      .call(d3.drag().on('drag', display));
+      .call(d3.drag().on('drag', reclaculateHorizontal));
   }
 
-  function display() {
+  function reclaculateHorizontal() {
     let y = parseInt(d3.select(this).attr('y')),
       ny = y + d3.event.dy,
       h = parseInt(d3.select(this).attr('height')),
@@ -118,7 +118,7 @@
       new_data,
       rects;
 
-    if (ny < 0 || ny + h > height + margin.top + margin.bottom) return;
+    if (ny < 0 || ny + h > height) return;
 
     d3.select(this).attr('y', ny);
 

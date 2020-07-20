@@ -12,18 +12,8 @@
     data.push(datum);
   }
 
-  let margin = {
-    top: 20,
-    right: 10,
-    bottom: 20,
-    left: 40,
-  };
-  let marginOverview = {
-    top: 30,
-    right: 10,
-    bottom: 20,
-    left: 40,
-  };
+  let margin = { top: 20, right: 10, bottom: 20, left: 40 };
+  let marginOverview = { top: 30, right: 10, bottom: 20, left: 40 };
   let selectorHeight = 40;
   let width = 600 - margin.left - margin.right;
   let height = 400 - margin.top - margin.bottom - selectorHeight;
@@ -114,10 +104,10 @@
       .attr('width', Math.round(parseFloat(numBars * width) / data.length))
       .attr('pointer-events', 'all')
       .attr('cursor', 'ew-resize')
-      .call(d3.drag().on('drag', display));
+      .call(d3.drag().on('drag', reclaculateVertical));
   }
 
-  function display() {
+  function reclaculateVertical() {
     let x = parseInt(d3.select(this).attr('x')),
       nx = x + d3.event.dx,
       w = parseInt(d3.select(this).attr('width')),
